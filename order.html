@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Gourmand Croquant Bakery</title>
+<link rel="stylesheet" href="index.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class= "bg">
+<div>
+<img src="logo.png" class="circle">
+</div>
+<div class="title"><h1>Gourmand Croquant Bakery</h1>
+<p class="sub" > Freshly baked pastries, cakes, breads, and more</p>
+</div>
+</div>
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="order.html">Order</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="https://www.google.com/search?sca_esv=8512dc6a21388a36&sxsrf=ANbL-n5r99liDb4oKJZcSkuWDDi3XWym6g:1768056489283&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOftGU_Mpj50b5dR5xemwYbDczvbXWn-v86tyPYuBW5Y8nPY5ENkIIcrX-gcF610u3Jr4M5rf6pCvQdPAw71cE2uH4DqIFjUJ-JFOPlcZ7auiaS91rQ%3D%3D&q=Gourmand+Croquant+Bakery+Reviews&sa=X&ved=2ahUKEwj4-fHXm4GSAxWK4ckDHReVGBwQ0bkNegQIKRAD&biw=1440&bih=661&dpr=2&aic=0">Reviews</a></li>
+    </ul>
+</nav>
+<div class="title"><p>   ____________________________________________________________________________________       </p></div>
+<h5 class ="sub scroll-reveal">Fill out fields for order, or call <a href= "tel:+1-614-517-8541" style= " text-decoration: none;">614-517-8541</a></h5>
+<div class ="box1 scroll-reveal">
+<form action="form.php" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="Cake Flavor">Cake Flavor:</label>
+        <input type="text" id="cakeFlavor" name="cakeFlavor" required><br><br>
+
+        <label for="Group Size">Group Size:</label>
+        <input type="text" id="groupSize" name="groupSize" required><br><br>
+        
+        <label for="Cake Design">Cake Design:</label>
+        <input type="file" id="cakeDesign" name="cakeDesign" required><br><br>
+        <label for="Special Request">Special Request:</label>
+        <input type="text" id="specialRequest" name="specialRequest" required><br><br>
+
+       <input type="submit" value="Submit"><br><br>
+        <small class ="sub">If there is no confirmation call or message, please call 614-517-8541 to ensure order is received. </small>
+    </form>
+    </div>
+    <br><br>
+    <div class="footer scroll-reveal"><a href="https://www.instagram.com/gourmandcroquant.bakery/?hl=en" target="_blank"><i class="fa fa-instagram"></i></a><p>Follow us on Instagram!</p></div>
+<script src="function.js"></script>
+</body>
+</html>
