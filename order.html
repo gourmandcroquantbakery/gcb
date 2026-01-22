@@ -27,25 +27,48 @@
 <div class="title"><p>   ____________________________________________________________________________________       </p></div>
 <h5 class ="sub scroll-reveal">Fill out fields for order, or call <a href= "tel:+1-614-517-8541" style= " text-decoration: none;">614-517-8541</a></h5>
 <div class ="box1 scroll-reveal">
-<form action="form.php" method="POST" enctype="multipart/form-data">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+<form
+  action="https://formspree.io/f/mdaenbpj"
+  method="POST"
+>
 
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required><br><br>
+  <label>
+    Name:
+    <input type="text" name="name" required>
+  </label>
 
-        <label for="Cake Flavor">Cake Flavor:</label>
-        <input type="text" id="cakeFlavor" name="cakeFlavor" required><br><br>
+  <label>
+    Email:
+    <input type="email" name="email" required>
+  </label>
 
-        <label for="Group Size">Group Size:</label>
-        <input type="text" id="groupSize" name="groupSize" required><br><br>
-        
-        <label for="Cake Design">Cake Design:</label>
-        <input type="file" id="cakeDesign" name="cakeDesign" required><br><br>
-        <label for="Special Request">Special Request:</label>
-        <input type="text" id="specialRequest" name="specialRequest" required><br><br>
+  <label>
+    Cake Flavor:
+    <input type="text" name="cakeFlavor">
+  </label>
 
-       <input type="submit" value="Submit"><br><br>
+  <label>
+    Group Size:
+    <input type="number" name="groupSize">
+  </label>
+
+  <label>
+    Cake Design Description:
+    <textarea name="cakeDesign"></textarea>
+  </label>
+
+  <label>
+    Upload Reference Image:
+    <input type="file" name="cakeDesignFile" accept="image/*">
+  </label>
+
+  <label>
+    Special Requests:
+    <textarea name="specialRequest"></textarea>
+  </label>
+
+  <button type="submit">Submit Order</button>
+</form><br><br>
         <small class ="sub">If there is no confirmation call or message, please call 614-517-8541 to ensure order is received. </small>
     </form>
     </div>
