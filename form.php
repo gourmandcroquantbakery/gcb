@@ -3,66 +3,79 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect and sanitize form data
-    $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    // Sanitize inputs
+    $name = htmlspecialchars(trim($_POST['name']));
     $visitor_email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $cakeFlavor = filter_var($_POST['cakeFlavor'], FILTER_SANITIZE_STRING);
-    $groupSize = filter_var($_POST['groupSize'], FILTER_SANITIZE_STRING);
-    $cakeDesign = filter_var($_POST['cakeDesign'], FILTER_SANITIZE_STRING);
-    $specialRequest = filter_var($_POST['specialRequest'], FILTER_SANITIZE_STRING);
+    $cakeFlavor = htmlspecialchars(trim($_POST['cakeFlavor']));
+    $groupSize = htmlspecialchars(trim($_POST['groupSize']));
+    $cakeDesign = htmlspecialchars(trim($_POST['cakeDesign']));
+    $specialRequest = htmlspecialchars(trim($_POST['specialRequest']));
+
     if (!$visitor_email) {
         die("Invalid email address.");
     }
-    if (isset($_FILES['cakeDesign']) && $_FILES['cakeDesign']['error'] == 0) {
-        $fileTmp = $_FILES['cakeDesign']['tmp_name'];
-        $fileName = $_FILES['cakeDesign']['name'];
-        $mail->addAttachment($fileTmp, $fileName);
-    }
 
+    // Create mail object FIRST
     $mail = new PHPMailer(true);
 
     try {
-        // Server settings
+        // SMTP settings
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; 
-        $mail->SMTPAuth = true;
-        $mail->Username = 'nesrinallalen@gmail.com';      // Your SMTP username
-        $mail->Password = '135790nes';      // Your SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use 'tls' or 'ssl'
-        $mail->Port = 587;                           // e.g., 587 for TLS, 465 for SSL
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'nesrinallalen@gmail.com';
+        $mail->Password   = getenv('GMAIL_APP_PASSWORD'); // App password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
 
         // Recipients
-        $mail->setFrom('nesrinallalen@gmail.com', 'Gourmand Croquant Orders'); // Must be a valid email on your SMTP server
-        $mail->addAddress('nesrinallalen@gmail.com', 'Gourmand Croquant Bakery'); // Your email address to receive the forms
-        $mail->addReplyTo($visitor_email, $name); // Set reply-to to the visitor's email
+        $mail->setFrom('nesrinallalen@gmail.com', 'Gourmand Croquant Orders');
+        $mail->addAddress('nesrinallalen@gmail.com');
+        $mail->addReplyTo($visitor_email, $name);
 
-        // Content
-        $mail->isHTML(true); // Set email format to HTML
-        $mail->Subject = "New Form Submission: $name";
-        $mail->Body    = "
-            <h2>Contact Form Details</h2>
+        // Attachment (renamed input)
+        if (isset($_FILES['cakeDesignFile']) && $_FILES['cakeDesignFile']['error'] === 0) {
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            if (in_array($_FILES['cakeDesignFile']['type'], $allowedTypes)) {
+                $mail->addAttachment(
+                    $_FILES['cakeDesignFile']['tmp_name'],
+                    $_FILES['cakeDesignFile']['name']
+                );
+            }
+        }
+
+        // Email content
+        $mail->isHTML(true);
+        $mail->Subject = "New Cake Order from $name";
+        $mail->Body = "
+            <h2>Order Details</h2>
             <p><strong>Name:</strong> $name</p>
             <p><strong>Email:</strong> $visitor_email</p>
             <p><strong>Cake Flavor:</strong> $cakeFlavor</p>
-            <p><strong>Group Size:</strong><br>$groupSize</p>
-            <p><strong>CakeDesign:</strong><br>$cakeDesign</p>
-            <p><strong>Special Request:</strong><br>$specialRequest</p>
+            <p><strong>Group Size:</strong> $groupSize</p>
+            <p><strong>Cake Design Notes:</strong> $cakeDesign</p>
+            <p><strong>Special Request:</strong> $specialRequest</p>
         ";
-        $mail->AltBody =
-        "Name: $name
-        Email: $visitor_email
-        Cake Flavor: $cakeFlavor
-        Group Size: $groupSize
-        Special Request: $specialRequest"; 
+
+        $mail->AltBody = "
+Name: $name
+Email: $visitor_email
+Cake Flavor: $cakeFlavor
+Group Size: $groupSize
+Cake Design: $cakeDesign
+Special Request: $specialRequest
+        ";
 
         $mail->send();
-        echo 'Message has been sent successfully!';
+        echo "Message sent successfully! 🎂";
+
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        echo "Mailer Error: {$mail->ErrorInfo}";
     }
+
 } else {
-    // Redirect if accessed directly
     header("Location: order.html");
     exit();
 }
