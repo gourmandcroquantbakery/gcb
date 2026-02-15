@@ -14,7 +14,25 @@
 	color: #887364;  
 	text-align: center; 
 }
-.bg{
+  .box2{
+    height:500px; 
+    width:700px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px; 
+    margin-bottom:10px; 
+    text-align: center; 
+    border-style: double;
+    border-width: 5px;
+    border-color: #bf9b30
+    font-family: "Georgia"; 
+    color: #887364;
+    box-shadow: 5px 5px 5px 2px #d6d6d6; 
+    
+}.bg{
 	background-color: #ffe9ec;
 	height: 250px;
     width:100%;
