@@ -14,7 +14,11 @@
 	color: #887364;  
 	text-align: center; 
 }
-  .box2{
+.column {
+    display: flex; 
+    justify-content: space-between; 
+    gap: 20px; 
+}  .box2{
     height:600px; 
     width:500px; 
     display: flex;
