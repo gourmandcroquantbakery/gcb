@@ -18,7 +18,18 @@
     display: flex; 
     justify-content: space-between; 
     gap: 20px; 
-}  .box2{
+}  .column-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column1 {  
+    text-align: center;
+    border: 1px solid black;
+    padding: 10px;
+    flex-grow: 1; 
+}.box2{
     height:600px; 
     width:500px; 
     display: flex;
